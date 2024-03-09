@@ -27,7 +27,7 @@ func (t *Tunnel) Start() {
 
 func New(token string, stdout bool) *Tunnel {
 	homeDir, _ := os.UserHomeDir()
-	executablePath := fmt.Sprintf("%s/.cloudflared/tunnel", homeDir)
+	executablePath := fmt.Sprintf("%s/.bin/tunnel", homeDir)
 	tunnel := Tunnel{Token: token, Stdout: stdout}
 
 	_, err := os.Stat(executablePath)
@@ -53,8 +53,8 @@ func New(token string, stdout bool) *Tunnel {
 			return nil
 		}
 
-		bin, _ := DownloadTunnel(url)
-		executable, _ := InstallTunnel(&bin)
+		bin, _ := downloadTunnel(url)
+		executable, _ := installTunnel(&bin)
 		tunnel.Executable = executable
 
 		return &tunnel

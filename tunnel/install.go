@@ -5,7 +5,7 @@ import (
 	"os"
 )
 
-func InstallTunnel(executable *[]byte) (string, error) {
+func installTunnel(executable *[]byte) (string, error) {
 	home, err := os.UserHomeDir()
 	if err != nil {
 		return "", fmt.Errorf("failed to get user home directory: %w", err)

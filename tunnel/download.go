@@ -10,7 +10,7 @@ import (
 	"strings"
 )
 
-func DownloadTunnel(url string) ([]byte, error) {
+func downloadTunnel(url string) ([]byte, error) {
 	resp, err := http.Get(url)
 	if err != nil {
 		return nil, fmt.Errorf("failed to download tunnel: %w", err)
