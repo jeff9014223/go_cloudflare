@@ -8,18 +8,18 @@ import (
 func installTunnel(executable *[]byte) (string, error) {
 	home, err := os.UserHomeDir()
 	if err != nil {
-		return "", fmt.Errorf("failed to get user home directory: %w", err)
+		return "", err
 	}
 
-	err = os.MkdirAll(fmt.Sprintf("%s/.cloudflared", home), 0755)
+	err = os.MkdirAll(fmt.Sprintf("%s/.bin", home), 0755)
 	if err != nil {
-		return "", fmt.Errorf("failed to create .cloudflared directory: %w", err)
+		return "", err
 	}
 
-	executablePath := fmt.Sprintf("%s/.cloudflared/tunnel", home)
+	executablePath := fmt.Sprintf("%s/.bin/tunnel", home)
 	err = os.WriteFile(executablePath, *executable, 0755)
 	if err != nil {
-		return "", fmt.Errorf("failed to write tunnel executable: %w", err)
+		return "", err
 	}
 
 	return executablePath, nil
