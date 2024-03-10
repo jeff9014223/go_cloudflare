@@ -14,7 +14,7 @@ type Tunnel struct {
 }
 
 func (t *Tunnel) Start() error {
-	cmd := exec.Command("tunnel", "tunnel", "run", "--token", t.Token)
+	cmd := exec.Command("./tunnel", "tunnel", "run", "--token", t.Token)
 	cmd.Path = "/var/tmp"
 
 	if t.Stdout {
