@@ -6,5 +6,19 @@ In this example the program creates a tunnel that will route example.com to http
 ```go
     package main
 
-    // Work in progress
+    import (
+        "github.com/jeff9014223/tunnel"
+    )
+
+    func main() {
+        tunnl, err := tunnel.New("CLOUDFLARE_TUNNEL_TOKEN", true) // set to false for no logging
+        if err != nil {
+            panic(err)
+        }
+
+        err = tunnl.Start()
+        if err != nil {
+            panic(err)
+        }
+    }
 ```
