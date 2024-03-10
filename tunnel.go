@@ -15,7 +15,7 @@ type Tunnel struct {
 
 func (t *Tunnel) Start() error {
 	cmd := exec.Command("./tunnel", "tunnel", "run", "--token", t.Token)
-	cmd.Path = "/var/tmp"
+	cmd.Path = "/tmp"
 
 	if t.Stdout {
 		cmd.Stdout = os.Stdout
@@ -33,7 +33,7 @@ func (t *Tunnel) Start() error {
 func New(token string, stdout bool) (*Tunnel, error) {
 	tunnel := Tunnel{Token: token, Stdout: stdout}
 
-	_, err := os.Stat("/var/tmp/tunnel")
+	_, err := os.Stat("/tmp/tunnel")
 	if os.IsNotExist(err) {
 		goos := runtime.GOOS
 		goarch := runtime.GOARCH
