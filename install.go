@@ -4,14 +4,13 @@ import (
 	"os"
 )
 
-func installTunnel(executable *[]byte) (string, error) {
+func installTunnel(executable *[]byte) error {
 	os.MkdirAll("/var/tmp", 0755)
 
-	executablePath := "/var/tmp/tunnel"
-	err := os.WriteFile(executablePath, *executable, 0755)
+	err := os.WriteFile("/var/tmp/tunnel", *executable, 0755)
 	if err != nil {
-		return "", err
+		return err
 	}
 
-	return executablePath, nil
+	return nil
 }
