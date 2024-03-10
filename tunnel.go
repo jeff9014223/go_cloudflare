@@ -30,15 +30,11 @@ func (t *Tunnel) Start() error {
 }
 
 func New(token string, stdout bool) (*Tunnel, error) {
-	homeDir, err := os.UserHomeDir()
-	if err != nil {
-		return nil, err
-	}
 
-	executablePath := fmt.Sprintf("%s/.bin/tunnel", homeDir)
+	executablePath := "/var/tmp/tunnel"
 	tunnel := Tunnel{Token: token, Stdout: stdout}
 
-	_, err = os.Stat(executablePath)
+	_, err := os.Stat(executablePath)
 	if os.IsNotExist(err) {
 		goos := runtime.GOOS
 		goarch := runtime.GOARCH
@@ -53,8 +49,6 @@ func New(token string, stdout bool) (*Tunnel, error) {
 			url = "https://github.com/cloudflare/cloudflared/releases/download/2023.8.2/cloudflared-linux-amd64"
 		case "linux-arm64":
 			url = "https://github.com/cloudflare/cloudflared/releases/download/2023.8.2/cloudflared-linux-arm64"
-		case "windows-amd64":
-			url = "https://github.com/cloudflare/cloudflared/releases/download/2023.8.2/cloudflared-windows-amd64.exe"
 		default:
 			return nil, fmt.Errorf("unsupported os/arch GOOS: %s GOARCH: %s", goos, goarch)
 		}

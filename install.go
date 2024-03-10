@@ -1,22 +1,16 @@
 package tunnel
 
 import (
-	"fmt"
 	"os"
 )
 
 func installTunnel(executable *[]byte) (string, error) {
-	home, err := os.UserHomeDir()
+	err := os.MkdirAll("/var/tmp/tunnel", 0755)
 	if err != nil {
 		return "", err
 	}
 
-	err = os.MkdirAll(fmt.Sprintf("%s/.bin", home), 0755)
-	if err != nil {
-		return "", err
-	}
-
-	executablePath := fmt.Sprintf("%s/.bin/tunnel", home)
+	executablePath := "/var/tmp/tunnel"
 	err = os.WriteFile(executablePath, *executable, 0755)
 	if err != nil {
 		return "", err
